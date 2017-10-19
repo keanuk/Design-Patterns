@@ -6,18 +6,22 @@ public class Main {
     Scanner scanner = new Scanner(System.in);
     String eqn = scanner.nextLine();
 
-    OpNode opN = null;
-    IntNode intN = null;
+    BuildTree bt = new BuildTree();
 
-    for(char ch: eqn.toCharArray()) {
-      if(ch == '+' || ch == '-' || ch == '*' || ch == '/') {
-        System.out.println("Math operation found: " + ch);
-        AddOp(ch);
+    char ch [] = eqn.replaceAll(" ", "").toCharArray();
+
+    for(int i = 0; i < ch.length; i++) {
+      if(ch[i] == '+' || ch[i] == '-' || ch[i] == '*' || ch[i] == '/') {
+        System.out.println("Math operation found: " + ch[i]);
+        bt.AddOp(ch, i);
       }
 
-      else if(Character.isDigit(ch)) {
-        System.out.println("Number found: " + ch);
-        AddInt(Character.getNumericValue(ch));
+      else if(Character.isDigit(ch[i])) {
+        System.out.println("Number found: " + ch[i]);
+      }
+
+      else if(ch[i] == "(" || ch[i] == ")") {
+        System.out.println("Found parenthesis: " + ch[i]);
       }
 
       else {
