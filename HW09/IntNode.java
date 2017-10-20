@@ -5,4 +5,8 @@ public class IntNode {
   public IntNode(int value) {
     this.value = value;
   }
+
+  public String toString() {
+    return String.valueOf(value);
+  }
 }

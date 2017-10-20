@@ -9,23 +9,42 @@ public class BuildTree {
     opN.children.add(intN);
   }
 
-  public void AddOp(char[] ch, int index) {
+  public OpNode AddOp(char[] ch, int index) {
     if(ch[index] == lastOp) {
-      AddInt(Character.getNumericValue(ch[index + 1]));
+      if(ch[index + 1] == '(') {
+        //Do nothing
+      }
+      else if(Character.isDigit(ch[index + 1])) {
+        AddInt(Character.getNumericValue(ch[index + 1]));
     }
+  }
 
     else if(opN != null) {
       opN.nextOp = new OpNode(ch[index]);
+      opN.nextOp.parent = opN;
       opN = opN.nextOp;
+      AddInt(Character.getNumericValue(ch[index - 1]));
+      if(ch[index + 1] == '(') {
+        //Do nothing
+      }
+      else if(Character.isDigit(ch[index + 1])) {
+        AddInt(Character.getNumericValue(ch[index + 1]));
+      }
     }
 
     else {
       opN = new OpNode(ch[index]);
       AddInt(Character.getNumericValue(ch[index - 1]));
 
-      if(Character.isDigit(ch[index + 1])) {
+      if(ch[index + 1] == '(') {
+        //Do nothing
+      }
+
+      else if(Character.isDigit(ch[index + 1])) {
         AddInt(Character.getNumericValue(ch[index + 1]));
       }
     }
+    lastOp = ch[index];
+    return opN;
   }
 }
